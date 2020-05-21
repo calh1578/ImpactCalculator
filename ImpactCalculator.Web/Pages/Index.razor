@@ -1,0 +1,92 @@
+﻿@page "/"
+
+<h1>Impact Calculator</h1>
+
+<div>
+    Attack vector: 
+    <select name="attackVector" id="attackVector" @bind="attackVector">
+        <option value="0">Physical</option>
+        <option value="1">Local</option>
+        <option value="2">AdjacentNetwork</option>
+        <option value="3">Network</option>
+    </select>
+</div>
+
+<div>
+    Attack complexity:
+    <select name="attackComplexity" id="attackComplexity" @bind="attackComplexity">
+        <option value="0">LowComplexity</option>
+        <option value="1">HighComplexity</option>
+    </select>
+</div>
+
+<div>
+    Privileges required:
+    <select name="privilegesRequired" id="privilegesRequired" @bind="privilegesRequired">
+        <option value="0">None</option>
+        <option value="1">Low</option>
+        <option value="2">High</option>
+    </select>
+</div>
+
+<div>
+    User interaction:
+    <select name="userInteraction" id="userInteraction" @bind="userInteraction">
+        <option value="0">UserInteractionNone</option>
+        <option value="1">UserInteractionRequired</option>
+    </select>
+</div>
+
+<div>
+    Scope:
+    <select name="scope" id="scope"  @bind="scope">
+        <option value="0">Unchanged</option>
+        <option value="1">Changed</option>
+    </select>
+</div>
+
+<div>
+    Confidentiality Impact:
+    <select name="confidentialityImpact" id="confidentialityImpact" @bind="confidentialityImpact">
+        <option value="0">NoImpact</option>
+        <option value="1">LowImpact</option>
+        <option value="2">HighImpact</option>
+    </select>
+</div>
+
+<div>
+    Integrity Impact:
+    <select name="integrityImpact" id="integrityImpact" @bind="integrityImpact">
+        <option value="0">NoImpact</option>
+        <option value="1">LowImpact</option>
+        <option value="2">HighImpact</option>
+    </select>
+</div>
+
+<div>
+    Availability Impact:
+    <select name="availabilityImpact" id="availabilityImpact" @bind="availabilityImpact">
+        <option value="0">NoImpact</option>
+        <option value="1">LowImpact</option>
+        <option value="2">HighImpact</option>
+    </select>
+</div>
+
+<div>
+    <button @onclick="CalculateAsync">Calculate</button>
+</div>
+
+<div>
+    Vector string:
+    <label id="vectorString">@vectorString</label>
+</div>
+
+<div>
+    Score:
+    <label id="score">@score</label>
+</div>
+
+<div>
+    Severity:
+    <label id="severity">@severity</label>
+</div>

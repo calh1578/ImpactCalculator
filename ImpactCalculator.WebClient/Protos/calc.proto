@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "ImpactCalculator.WebClient";
+
+package calc;
+
+// The greeting service definition.
+service Calculator {
+  // Sends a greeting
+  rpc GetScore (Vectors) returns (CvssScore);
+}
+
+message Vectors {
+	string vectorString = 1;
+}
+
+message CvssScore {
+	double score = 1;
+}
