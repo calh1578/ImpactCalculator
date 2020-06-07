@@ -20,8 +20,12 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ImpactCalculator.sln
     - name: Build
-      run: dotnet build ImpactCalculator.sln --configuration Release --no-restore
+      run: dotnet build ImpactCalculator.sln --configuration Release --no-restore 
     - name: Test Service
       run: dotnet test ImpactCalculator.CalculatorService/UnitTests/CalculatorService.UnitTests.csproj --no-restore --verbosity normal
+    - name: Build Test Service with Docker
+      run: docker build -t csut -f /ImpactCalculator.CalculatorService/UnitTests.Dockerfile /ImpactCalculator.CalculatorService
+    - name: Run Test Service with Docker
+      run: docker run --name csunittests csut
     - name: Test Client
-      run: dotnet test ImpactCalculator.WebClient/UnitTests/WebClient.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test ImpactCalculator.WebClient/UnitTests/WebClient.UnitTests.csproj --no-restore --verbosity normal    
