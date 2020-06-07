@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+    calculatorservice:
+        build:
+            context: ImpactCalculator.CalculatorService
+        ports:
+          - 5000:5000
+        environment:
+            ASPNETCORE_ENVIRONMENT: "Development"
+            COMPOSE: "TRUE"
+        stdin_open: true
+        tty: true
+
+    webclient:
+        build:
+            context: ImpactCalculator.WebClient
+        ports:
+          - 8000:80
+        environment:
+            ASPNETCORE_ENVIRONMENT: "Development"
+            ASPNETCORE_URLS: "http://+:80"
+            CALCULATOR_URL: "http://calculatorservice:5000"

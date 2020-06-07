@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpactCalculator.CalculatorService", "ImpactCalculator.CalculatorService\ImpactCalculator.CalculatorService.csproj", "{D68E5A9F-3DF4-45D4-B629-32C7885C482E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpactCalculator.CalculatorService", "ImpactCalculator.CalculatorService\App\ImpactCalculator.CalculatorService.csproj", "{D68E5A9F-3DF4-45D4-B629-32C7885C482E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpactCalculator.WebClient", "ImpactCalculator.WebClient\ImpactCalculator.WebClient.csproj", "{7FE5F633-1A6F-49EE-B0DE-862E0148FAC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImpactCalculator.WebClient", "ImpactCalculator.WebClient\App\ImpactCalculator.WebClient.csproj", "{7FE5F633-1A6F-49EE-B0DE-862E0148FAC4}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{742E2167-6DD1-4E94-98F2-ABC9B93410E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorService.UnitTests", "ImpactCalculator.CalculatorService\UnitTests\CalculatorService.UnitTests.csproj", "{1C2F321E-F48D-4D96-B9FD-98CDA2392DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.UnitTests", "ImpactCalculator.WebClient\UnitTests\WebClient.UnitTests.csproj", "{41D953DB-41AB-4B51-B483-70A9A23F67FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{7FE5F633-1A6F-49EE-B0DE-862E0148FAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE5F633-1A6F-49EE-B0DE-862E0148FAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE5F633-1A6F-49EE-B0DE-862E0148FAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{742E2167-6DD1-4E94-98F2-ABC9B93410E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{742E2167-6DD1-4E94-98F2-ABC9B93410E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{742E2167-6DD1-4E94-98F2-ABC9B93410E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{742E2167-6DD1-4E94-98F2-ABC9B93410E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C2F321E-F48D-4D96-B9FD-98CDA2392DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2F321E-F48D-4D96-B9FD-98CDA2392DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2F321E-F48D-4D96-B9FD-98CDA2392DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2F321E-F48D-4D96-B9FD-98CDA2392DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D953DB-41AB-4B51-B483-70A9A23F67FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D953DB-41AB-4B51-B483-70A9A23F67FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D953DB-41AB-4B51-B483-70A9A23F67FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D953DB-41AB-4B51-B483-70A9A23F67FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
