@@ -18,8 +18,10 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ImpactCalculator.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet build ImpactCalculator.sln --configuration Release --no-restore
+    - name: Test Service
+      run: dotnet test ImpactCalculator.CalculatorService/UnitTests/CalculatorService.UnitTests.csproj --no-restore --verbosity normal
+    - name: Test Client
+      run: dotnet test ImpactCalculator.WebClient/UnitTests/WebClient.UnitTests.csproj --no-restore --verbosity normal
