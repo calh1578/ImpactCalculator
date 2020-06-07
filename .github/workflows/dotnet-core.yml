@@ -21,7 +21,22 @@ jobs:
       run: dotnet restore ImpactCalculator.sln
     - name: Build
       run: dotnet build ImpactCalculator.sln --configuration Release --no-restore 
+    - name: Install coverlet tool
+      run: dotnet tool install --global coverlet.console
+    - name: Install reportgenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Test Service
-      run: dotnet test ImpactCalculator.CalculatorService/UnitTests/CalculatorService.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test ImpactCalculator.CalculatorService/UnitTests/CalculatorService.UnitTests.csproj --no-restore
+    - name: Get Coverage
+      run: coverlet bin\Debug\netcoreapp3.1\CalculatorService.UnitTests.dll --target "dotnet" --targetargs "test --no-build" --format cobertura
+      working-directory: ImpactCalculator.CalculatorService/UnitTests
+    - name: Generate Report
+      run: reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:CoverageReports" "-reporttypes:Html;Cobertura;Badges"
+      working-directory: ImpactCalculator.CalculatorService/UnitTests
+    - name: Publish Report
+      uses: actions/upload-artifact@v1.0.0
+      with: 
+        name: Report
+        path: ImpactCalculator.CalculatorService/UnitTests/CoverageReports      
     - name: Test Client
-      run: dotnet test ImpactCalculator.WebClient/UnitTests/WebClient.UnitTests.csproj --no-restore --verbosity normal    
+      run: dotnet test ImpactCalculator.WebClient/UnitTests/WebClient.UnitTests.csproj --no-restore
