@@ -26,10 +26,11 @@ To bring deploy both services via docker-compose, perform the following steps
 4. Verify services are running by executing the following command `docker ps`
 5. Open your favorite browser and navigate to [Here](http://localhost:8000)
 6. Enter some values, get some scores and severity
+7. Once done, cleanup by running `docker-compose down`
 
 ## Testing
 Each Service has its own Unit Test Suite.  The suite can be ran multiple ways
  - From within Visual Studio
  - From the command line inside the UnitTest folder with `dotnet test`
- - Running inside of Docker, which will run the tests and copy the trx to the local system
+ - Running inside of Docker
    - Inside each Service directory, there is a `runUnit.ps1` which creates an image, runs a container from the image, copies the trx out of the container, deletes the container

@@ -6,9 +6,9 @@ namespace ImpactCalculator.WebClient.Pages
 {
     public partial class Index
     {
-        private string vectorString = "";
+        private string vectorString = string.Empty;
         private double score = 0;
-        private string severity = "";
+        private string severity = string.Empty;
 
         private string attackComplexity = "Low";
         private string attackVector = "Physical";
@@ -23,7 +23,7 @@ namespace ImpactCalculator.WebClient.Pages
 
         public async Task CalculateAsync()
         {
-            vectorString = "";
+            vectorString = string.Empty;
             vectorString += "CVSS:3.0";
             vectorString += $"/AV:{attackVector.First()}";
             vectorString += $"/AC:{attackComplexity.First()}";
