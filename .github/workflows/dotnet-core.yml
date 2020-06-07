@@ -21,11 +21,8 @@ jobs:
       run: dotnet restore ImpactCalculator.sln
     - name: Build
       run: dotnet build ImpactCalculator.sln --configuration Release --no-restore 
-    - name: Build Service Image
-      run: docker build -t iccs .
-      working-directory: ImpactCalculator.CalculatorService
     - name: Build Client Image
-      run: docker build -t iccs .
+      run: docker build -t icws .
       working-directory: ImpactCalculator.WebClient
     - name: Test Service
       run: dotnet test --no-restore --collect:"XPlat Code Coverage"
