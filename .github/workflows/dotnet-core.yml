@@ -26,7 +26,8 @@ jobs:
     - name: Install reportgenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Test Service
-      run: dotnet test ImpactCalculator.CalculatorService/UnitTests/CalculatorService.UnitTests.csproj --no-restore
+      run: dotnet test --no-restore
+      working-directory: ImpactCalculator.CalculatorService/UnitTests
     - name: Get Coverage
       run: coverlet bin\Debug\netcoreapp3.1\CalculatorService.UnitTests.dll --target "dotnet" --targetargs "test --no-build" --format cobertura
       working-directory: ImpactCalculator.CalculatorService/UnitTests
