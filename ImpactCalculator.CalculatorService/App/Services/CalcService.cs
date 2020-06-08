@@ -6,37 +6,25 @@ namespace ImpactCalculator.CalculatorService
 {
     public class CalcService : Calculator.CalculatorBase
     {
-        private readonly DefaultCvssCalculator calculator = new DefaultCvssCalculator();
-        private readonly ILogger<CalcService> _logger;
+        private readonly ILogger<CalcService> logger;
+        private readonly IDefaultCvssCalculator defaultCvssCalculator;
 
-        public CalcService(ILogger<CalcService> logger)
+        public CalcService(ILogger<CalcService> logger, IDefaultCvssCalculator defaultCvssCalculator)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.defaultCvssCalculator = defaultCvssCalculator;
         }
 
         public override Task<CvssScore> GetScore(Vectors request, ServerCallContext context)
         {
             if (request == null || context == null)
             {
-                _logger.LogError("Null vector or context");
+                logger.LogError("Null vector or context");
 
                 return Task.FromResult(new CvssScore { Score = -1 });
             }
 
-            var vectorString = request.VectorString;
-
-            double score;
-
-            try
-            {
-                score = calculator.GetScore(vectorString);
-            }
-            catch
-            {
-                _logger.LogError($"Invalid vector string, vector:{request.VectorString}");
-
-                score = -1;
-            }
+            var score = defaultCvssCalculator.GetScore(request.VectorString);
 
             return Task.FromResult(new CvssScore() { Score = score });
         }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace ImpactCalculator.WebClient
 {
@@ -41,14 +42,11 @@ namespace ImpactCalculator.WebClient
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
 
-            Console.WriteLine(calcURL);
-
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddGrpcClient<Calculator.CalculatorClient>(cc =>
             {
                 cc.Address = new Uri(calcURL);
-
             })
             .ConfigureChannel(op =>
             {
@@ -78,6 +76,7 @@ namespace ImpactCalculator.WebClient
                 app.UseHsts();
             }
 
+            app.UseSerilogRequestLogging();
 
             if (string.IsNullOrWhiteSpace(GetSetting("CALCULATOR_URL")))
             {

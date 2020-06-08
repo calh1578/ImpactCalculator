@@ -9,18 +9,24 @@ using Bunit;
 using Grpc.Core;
 using ImpactCalculator.WebClient;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace WebClient.UnitTests
 {
     [TestClass]
     public class IndexPageTests
     {
+        private Mock<ILogger<ImpactCalculator.WebClient.Pages.Index>> loggerMock = new Mock<ILogger<ImpactCalculator.WebClient.Pages.Index>>();
+
         [DataTestMethod]
         [DataRow(0, "None")]
         [DataRow(2.5, "Low")]
         [DataRow(6, "Medium")]
+        [DataRow(7, "Medium")]
         [DataRow(8, "High")]
+        [DataRow(9, "High")]
         [DataRow(9.9, "Critical")]
         public async Task TestIndexPageWithVariousScoresExpectSuccess(double score, string severity)
         {
@@ -28,6 +34,7 @@ namespace WebClient.UnitTests
 
             // Inject
             ctx.Services.Add(new ServiceDescriptor(typeof(Calculator.CalculatorClient), new CalculatorClientStub(true, score)));
+            ctx.Services.Add(new ServiceDescriptor(typeof(ILogger<ImpactCalculator.WebClient.Pages.Index>), loggerMock.Object));
 
             var indexPage = ctx.RenderComponent<ImpactCalculator.WebClient.Pages.Index>();
 
@@ -53,6 +60,7 @@ namespace WebClient.UnitTests
 
             // Inject
             ctx.Services.Add(new ServiceDescriptor(typeof(Calculator.CalculatorClient), new CalculatorClientStub(false, 0)));
+            ctx.Services.Add(new ServiceDescriptor(typeof(ILogger<ImpactCalculator.WebClient.Pages.Index>), loggerMock.Object));
 
             var indexPage = ctx.RenderComponent<ImpactCalculator.WebClient.Pages.Index>();
 

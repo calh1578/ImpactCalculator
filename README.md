@@ -28,6 +28,10 @@ To bring deploy both services via docker-compose, perform the following steps
 6. Enter some values, get some scores and severity
 7. Once done, cleanup by running `docker-compose down`
 
+## Logging
+Logging is being handled by Serilog, which has many configuration options.  Log levels for the service and AspNet can be set via the docker-compose
+or with environment levels.
+
 ## Testing
 Each Service has its own Unit Test Suite.  The suite can be ran multiple ways
  - From within Visual Studio

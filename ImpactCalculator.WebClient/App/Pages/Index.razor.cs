@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 
 namespace ImpactCalculator.WebClient.Pages
 {
@@ -21,6 +23,8 @@ namespace ImpactCalculator.WebClient.Pages
 
         [Inject] Calculator.CalculatorClient CalculatorClient { get; set; }
 
+        [Inject] private ILogger<Index> Logger { get; set; }
+
         public async Task CalculateAsync()
         {
             vectorString = string.Empty;
@@ -34,16 +38,22 @@ namespace ImpactCalculator.WebClient.Pages
             vectorString += $"/I:{integrityImpact.First()}";
             vectorString += $"/A:{availabilityImpact.First()}";
 
+            Logger.LogInformation($"User vector string: {vectorString}");
+
             var vectors = new Vectors() { VectorString = vectorString };
 
             CvssScore cvssScore;
 
             try
             {
+                Logger.LogDebug($"Attempting to connect to gRPC Server");
+
                 cvssScore = await CalculatorClient.GetScoreAsync(vectors);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.LogWarning(ex, "Unable to connect to gRPC Server");
+
                 cvssScore = new CvssScore
                 {
                     Score = -1

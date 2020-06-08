@@ -9,6 +9,8 @@ services:
         environment:
             ASPNETCORE_ENVIRONMENT: "Development"
             COMPOSE: "TRUE"
+            LogLevel: "Debug"
+            AspNetCoreLogLevel: "Warning"
         stdin_open: true
         tty: true
 
@@ -21,3 +23,5 @@ services:
             ASPNETCORE_ENVIRONMENT: "Development"
             ASPNETCORE_URLS: "http://+:80"
             CALCULATOR_URL: "http://calculatorservice:5000"
+            LogLevel: "Info"
+            AspNetCoreLogLevel: "Warning"

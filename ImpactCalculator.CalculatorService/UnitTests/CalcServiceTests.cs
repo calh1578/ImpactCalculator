@@ -17,21 +17,12 @@ namespace CalculatorService.UnitTests
     public class CalcServiceTests
     {
         private readonly Mock<ILogger<CalcService>> mockLogger = new Mock<ILogger<CalcService>>();
-
-        [TestMethod]
-        public async Task TestCalcServiceVectorEmptyContextNullExpectNegativeScore()
-        {
-            var calcService = new CalcService(mockLogger.Object);
-
-            var score = await calcService.GetScore(new Vectors(), new ServerCallContextInherit());
-
-            Assert.AreEqual(-1, score.Score);
-        }
+        private readonly Mock<IDefaultCvssCalculator> mockCalculator = new Mock<IDefaultCvssCalculator>();
 
         [TestMethod]
         public async Task TestCalcServiceVectorNullContextNullExpectNegativeScore()
         {
-            var calcService = new CalcService(mockLogger.Object);
+            var calcService = new CalcService(mockLogger.Object, mockCalculator.Object);
 
             var score = await calcService.GetScore(new Vectors(), null);
 
@@ -51,7 +42,9 @@ namespace CalculatorService.UnitTests
         [DataRow("CVSS:3.0/AV:P/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:K", -1)]
         public async Task TestCalcServiceVectorValidContextValidExpectCorrectScore(string vector, double correctScore)
         {
-            var calcService = new CalcService(mockLogger.Object);
+            mockCalculator.Setup(mock => mock.GetScore(vector)).Returns(correctScore);
+
+            var calcService = new CalcService(mockLogger.Object, mockCalculator.Object);
 
             var score = await calcService.GetScore(new Vectors { VectorString = vector }, new ServerCallContextInherit());
 
