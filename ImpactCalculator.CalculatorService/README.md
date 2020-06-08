@@ -8,6 +8,7 @@ A service which calculates a vulnerability score based on Common Vulnerability S
   - Cvss.Net - Provides CVSS scoring
   - Grpc.AspNetCore - Provides gRPC
   - Microsoft.VisualStudio.Azure.Containers.Tools.Targets - Provides VS Container support and tools
+  - Serilog.AspNetCore - Logging Provider
 - Layout
   - App - Where Service code lives
   - UnitTests - Where Service code lives
