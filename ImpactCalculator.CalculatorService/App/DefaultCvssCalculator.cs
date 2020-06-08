@@ -35,7 +35,7 @@ namespace ImpactCalculator.CalculatorService
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, $"Excpetion due to vector string: {vectorString}");
+                logger.LogError(ex, $"Exception due to vector string: {vectorString}");
 
                 return -1;
             }
