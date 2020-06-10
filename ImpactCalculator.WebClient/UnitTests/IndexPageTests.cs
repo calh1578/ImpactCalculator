@@ -1,5 +1,5 @@
 //
-// © Copyright 2020 MC
+// Â© Copyright 2020 MC
 //
 
 using System;
@@ -61,8 +61,7 @@ namespace WebClient.UnitTests
 
         [TestMethod]
         public async Task TestIndexPageWithCacheExpectSuccessSeverityMatch()
-        {
-            var vectorString = "CVSS:3.0/AV:P/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:N";
+        {            
             var score = new CvssScore { Score = 5 };
 
             var scoreSerialized = JsonSerializer.Serialize(score);
