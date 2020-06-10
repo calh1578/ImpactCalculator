@@ -17,11 +17,20 @@ services:
     webclient:
         build:
             context: ImpactCalculator.WebClient
+        depends_on: 
+            - "rediscache"
+            - "calculatorservice"
         ports:
           - 8000:80
         environment:
             ASPNETCORE_ENVIRONMENT: "Development"
             ASPNETCORE_URLS: "http://+:80"
             CALCULATOR_URL: "http://calculatorservice:5000"
-            LogLevel: "Info"
+            REDIS_CONNECT: "rediscache:6379,abortConnect=False"
+            LogLevel: "Information"
             AspNetCoreLogLevel: "Warning"
+            
+    rediscache:
+        image: redis
+        ports: 
+            - 6379:6379

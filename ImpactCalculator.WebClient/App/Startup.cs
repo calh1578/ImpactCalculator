@@ -42,6 +42,12 @@ namespace ImpactCalculator.WebClient
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
 
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = GetSetting("REDIS_CONNECT");
+            });
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddGrpcClient<Calculator.CalculatorClient>(cc =>

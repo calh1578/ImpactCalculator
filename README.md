@@ -32,6 +32,9 @@ To bring deploy both services via docker-compose, perform the following steps
 Logging is being handled by Serilog, which has many configuration options.  Log levels for the service and AspNet can be set via the docker-compose
 or with environment levels.
 
+## Redis
+When using docker-compose, added the ability to cache CVSS instead of going to the server.  Values are valid for 1hr once cached.
+
 ## Testing
 Each Service has its own Unit Test Suite.  The suite can be ran multiple ways
  - From within Visual Studio

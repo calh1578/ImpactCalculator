@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 
 namespace ImpactCalculator.WebClient.Pages
@@ -24,6 +27,8 @@ namespace ImpactCalculator.WebClient.Pages
         [Inject] Calculator.CalculatorClient CalculatorClient { get; set; }
 
         [Inject] private ILogger<Index> Logger { get; set; }
+
+        [Inject] private IDistributedCache Cache { get; set; }
 
         public async Task CalculateAsync()
         {
@@ -48,7 +53,37 @@ namespace ImpactCalculator.WebClient.Pages
             {
                 Logger.LogDebug($"Attempting to connect to gRPC Server");
 
-                cvssScore = await CalculatorClient.GetScoreAsync(vectors);
+                try
+                {
+                    var cacheBytes = await Cache.GetAsync(vectors.VectorString);
+
+                    if (cacheBytes == null)
+                    {
+                        cvssScore = await CalculatorClient.GetScoreAsync(vectors);
+
+                        var cvssScoreSerialized = JsonSerializer.Serialize(cvssScore);
+                        var cvssScoreBytes = Encoding.UTF8.GetBytes(cvssScoreSerialized);
+
+                        Logger.LogInformation($"Add cache for vector string: {vectorString}");
+                        await Cache.SetAsync(vectors.VectorString, cvssScoreBytes, new DistributedCacheEntryOptions()
+                        {
+                            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                        });
+                    }
+                    else
+                    {
+                        Logger.LogInformation($"Used cache for vector string: {vectorString}");
+
+                        var bytesString = Encoding.UTF8.GetString(cacheBytes);
+                        cvssScore = JsonSerializer.Deserialize<CvssScore>(bytesString);
+                    }
+                }
+                catch
+                {
+                    Logger.LogWarning("Unable to use cache");
+
+                    cvssScore = await CalculatorClient.GetScoreAsync(vectors);
+                }
             }
             catch (Exception ex)
             {
